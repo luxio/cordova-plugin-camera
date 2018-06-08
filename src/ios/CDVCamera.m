@@ -753,6 +753,14 @@ static NSString* toBase64(NSData* data) {
     cameraPicker.pictureOptions = pictureOptions;
     cameraPicker.sourceType = pictureOptions.sourceType;
     cameraPicker.allowsEditing = pictureOptions.allowsEditing;
+    
+    // do not compress selected videos
+    if (@available(iOS 11.0, *)) {
+        cameraPicker.videoExportPreset = AVAssetExportPresetPassthrough;
+    } else {
+        // Fallback on earlier versions
+    }
+
 
     if (cameraPicker.sourceType == UIImagePickerControllerSourceTypeCamera) {
         // We only allow taking pictures (no video) in this API.
